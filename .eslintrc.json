@@ -1,0 +1,11 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "array-bracket-newline": ["error"],
+    "no-console": "warn",
+    "arrow-spacing": "error",
+    "no-duplicate-imports": "error",
+    "no-var": "error",
+    "prefer-const": "error"
+  }
+}
