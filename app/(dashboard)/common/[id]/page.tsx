@@ -38,8 +38,13 @@ const baseUrl =
     ? '127.0.0.1:3000'
     : 'https://kenzie-enterprises-ten.vercel.app';
 
+const realCookieName =
+  process.env.NODE_ENV === 'development'
+    ? '__Secure-next-auth.session-token'
+    : 'next-auth.session-token';
+
 async function getUserInfo(): Promise<IUserInfo> {
-  const token = cookies().get('next-auth.session-token');
+  const token = cookies().get(realCookieName);
   const requestHeaders = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token?.value}`,
@@ -53,7 +58,7 @@ async function getUserInfo(): Promise<IUserInfo> {
 }
 
 async function getCoworkers() {
-  const token = cookies().get('next-auth.session-token');
+  const token = cookies().get(realCookieName);
   const requestHeaders = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token?.value}`,
@@ -79,7 +84,7 @@ export async function generateStaticParams() {
 export default async function CommonUserPage() {
   const userInfo = await getUserInfo();
   const departmentFound: ICoworkers = await getCoworkers();
-  const token = cookies().get('next-auth.session-token')?.value;
+  const token = cookies().get(realCookieName)?.value;
 
   return (
     <main className="w-full h-full relative flex flex-col items-center bg-[#1c2c45]">

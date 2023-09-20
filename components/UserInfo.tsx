@@ -45,10 +45,15 @@ export default function UserInfo({ userInfo, token }: IProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const baseUrl =
+    process.env.NODE_ENV === 'development'
+      ? '127.0.0.1:3000'
+      : 'https://kenzie-enterprises-ten.vercel.app';
+
   async function submit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      await axios.patch('http:///api/users', values, {
+      await axios.patch(`${baseUrl}/api/users`, values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

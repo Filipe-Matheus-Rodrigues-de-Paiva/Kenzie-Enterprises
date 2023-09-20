@@ -8,6 +8,11 @@ const baseUrl =
     ? '127.0.0.1:3000'
     : 'https://kenzie-enterprises-ten.vercel.app';
 
+const realCookieName =
+  process.env.NODE_ENV === 'development'
+    ? '__Secure-next-auth.session-token'
+    : 'next-auth.session-token';
+
 export interface IUser {
   id: string;
   email: string;
@@ -42,7 +47,7 @@ export interface IDepartment {
 }
 
 async function getAllUsers() {
-  const token = cookies().get('next-auth.session-token');
+  const token = cookies().get(realCookieName);
   const requestHeaders = {
     Authorization: `Bearer ${token?.value}`,
   };
@@ -59,7 +64,7 @@ async function getAllUsers() {
 }
 
 async function getAllUsersOutOfWork() {
-  const token = cookies().get('next-auth.session-token');
+  const token = cookies().get(realCookieName);
   const requestHeaders = {
     Authorization: `Bearer ${token?.value}`,
   };
@@ -76,7 +81,7 @@ async function getAllUsersOutOfWork() {
 }
 
 async function getAllDepartments() {
-  const token = cookies().get('next-auth.session-token');
+  const token = cookies().get(realCookieName);
   const requestHeaders = {
     Authorization: `Bearer ${token?.value}`,
   };
@@ -105,7 +110,7 @@ async function getAllCompanies() {
 export default async function AdminPage() {
   const users: IUser[] = await getAllUsers();
   const departments: IDepartment[] = await getAllDepartments();
-  const token = cookies().get('next-auth.session-token')?.value;
+  const token = cookies().get(realCookieName)?.value;
   const usersOutOfWork: IUserOutOfWork[] = await getAllUsersOutOfWork();
   const companies: ICompany[] = await getAllCompanies();
 
