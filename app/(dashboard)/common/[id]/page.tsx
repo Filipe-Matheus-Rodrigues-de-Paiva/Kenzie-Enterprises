@@ -43,10 +43,9 @@ const realCookieName =
     ? '__Secure-next-auth.session-token'
     : 'next-auth.session-token';
 
-async function getUserInfo(): Promise<IUserInfo> {
+async function getUserInfo() {
   const token = cookies().get(realCookieName);
   const requestHeaders = {
-    'Content-Type': 'application/json',
     Authorization: `Bearer ${token?.value}`,
   };
 
