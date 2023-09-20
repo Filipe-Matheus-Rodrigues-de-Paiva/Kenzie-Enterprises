@@ -1,3 +1,4 @@
+import { prisma } from '@/app/lib/prisma';
 import UserInfo from '@/components/UserInfo';
 import { cookies } from 'next/headers';
 
@@ -58,6 +59,14 @@ async function getCoworkers() {
   }).then((res) => res.json());
 
   return department;
+}
+
+export async function generateStaticParams() {
+  const users = await prisma.user.findMany();
+
+  return users.map((user) => ({
+    id: user.id,
+  }));
 }
 
 export default async function CommonUserPage() {
