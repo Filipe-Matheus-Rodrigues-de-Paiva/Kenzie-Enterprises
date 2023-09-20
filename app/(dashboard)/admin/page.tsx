@@ -42,7 +42,7 @@ async function getAllUsers() {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const users = await fetch('http://localhost:3000/api/admin/users', {
+  const users = await fetch('127.0.0.1:3000/api/admin/users', {
     headers: requestHeaders,
   });
 
@@ -59,12 +59,9 @@ async function getAllUsersOutOfWork() {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const users = await fetch(
-    'http://localhost:3000/api/admin/hire/out-of-work',
-    {
-      headers: requestHeaders,
-    }
-  );
+  const users = await fetch('127.0.0.1:3000/api/admin/hire/out-of-work', {
+    headers: requestHeaders,
+  });
 
   if (!users.ok) {
     throw new Error('Erro ao buscar dados');
@@ -79,7 +76,7 @@ async function getAllDepartments() {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const response = await fetch('http://localhost:3000/api/admin/departments', {
+  const response = await fetch('127.0.0.1:3000/api/admin/departments', {
     headers: requestHeaders,
   });
 
@@ -91,7 +88,7 @@ async function getAllDepartments() {
 }
 
 async function getAllCompanies() {
-  const response = await fetch('http://localhost:3000/api/companies');
+  const response = await fetch('127.0.0.1:3000/api/companies');
 
   if (!response.ok) {
     throw new Error('Erro ao buscar dados');
