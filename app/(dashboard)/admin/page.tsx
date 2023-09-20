@@ -53,7 +53,7 @@ async function getAllUsers(): Promise<IUser[]> {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const users = await fetch('http://localhost:3000/api/admin/users', {
+  const users = await fetch('127.0.0.1/api/admin/users', {
     headers: requestHeaders,
   }).then((res) => res.json());
 
@@ -71,12 +71,9 @@ async function getAllUsersOutOfWork() {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const users = await fetch(
-    'http://localhost:3000/api/admin/hire/out-of-work',
-    {
-      headers: requestHeaders,
-    }
-  ).then((res) => res.json());
+  const users = await fetch('127.0.0.1/api/admin/hire/out-of-work', {
+    headers: requestHeaders,
+  }).then((res) => res.json());
 
   return users;
 }
@@ -88,12 +85,9 @@ async function getAllDepartments() {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const departments = await fetch(
-    'http://localhost:3000/api/admin/departments',
-    {
-      headers: requestHeaders,
-    }
-  ).then((res) => res.json());
+  const departments = await fetch('127.0.0.1/api/admin/departments', {
+    headers: requestHeaders,
+  }).then((res) => res.json());
 
   await new Promise((r) => {
     setTimeout(r, 2000);
@@ -103,8 +97,8 @@ async function getAllDepartments() {
 }
 
 async function getAllCompanies() {
-  const companies = await fetch('http://localhost:3000/api/companies').then(
-    (res) => res.json()
+  const companies = await fetch('127.0.0.1/api/companies').then((res) =>
+    res.json()
   );
 
   return companies;
