@@ -32,6 +32,11 @@ interface IProps {
   companies: ICompany[];
 }
 
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? '127.0.0.1:3000'
+    : 'https://kenzie-enterprises-ten.vercel.app';
+
 const formSchema = z.object({
   name: z.string().nonempty('Campo obrigatório'),
   description: z.string().nonempty('Campo obrigatório'),
@@ -62,15 +67,11 @@ export default function CreateDepartmentModal({ token, companies }: IProps) {
     setIsLoading(true);
 
     try {
-      await axios.post(
-        'http://localhost:3000/api/admin/departments/create',
-        values,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.post(`${baseUrl}/api/admin/departments/create`, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       toast({
         title: 'Departamento criado com sucesso',

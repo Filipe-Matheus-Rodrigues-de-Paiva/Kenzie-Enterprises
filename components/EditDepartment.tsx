@@ -25,6 +25,11 @@ interface IProps {
   department: IDepartment;
 }
 
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? '127.0.0.1:3000'
+    : 'https://kenzie-enterprises-ten.vercel.app';
+
 const formSchema = z.object({
   description: z.string().nonempty('Campo obrigatório'),
 });
@@ -52,7 +57,7 @@ export default function CreateDepartmentModal({ token, department }: IProps) {
 
     try {
       await axios.patch(
-        `http://localhost:3000/api/admin/departments/${department.id}`,
+        `${baseUrl}/api/admin/departments/${department.id}`,
         values,
         {
           headers: {

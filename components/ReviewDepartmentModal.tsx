@@ -39,6 +39,11 @@ interface IProps {
   token: string | undefined;
 }
 
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? '127.0.0.1:3000'
+    : 'https://kenzie-enterprises-ten.vercel.app';
+
 const formSchema = z.object({
   user_uuid: z.string().nonempty(),
   department_uuid: z.string().nonempty(),
@@ -78,7 +83,7 @@ export default function ReviewDepartmentModal({
 
       if (userUuid && departmentUuid) {
         await axios.patch(
-          'http://localhost:3000/api/admin/hire',
+          `${baseUrl}/api/admin/hire`,
           {
             user_uuid: userUuid,
             department_uuid: departmentUuid,
@@ -107,10 +112,15 @@ export default function ReviewDepartmentModal({
     }
   }
 
+  const baseUrl =
+    process.env.NODE_ENV === 'development'
+      ? '127.0.0.1:3000'
+      : 'https://kenzie-enterprises-ten.vercel.app';
+
   async function dismissEmployee(id: string) {
     setIsLoading(true);
     try {
-      await axios.patch(`http://localhost:3000/api/admin/dismiss/${id}`, {
+      await axios.patch(`${baseUrl}/api/admin/dismiss/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

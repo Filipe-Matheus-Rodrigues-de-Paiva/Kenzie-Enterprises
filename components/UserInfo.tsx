@@ -48,7 +48,7 @@ export default function UserInfo({ userInfo, token }: IProps) {
   async function submit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      await axios.patch('http://localhost:3000/api/users', values, {
+      await axios.patch('http:///api/users', values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -33,6 +33,11 @@ interface ICoworkers {
   };
 }
 
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? '127.0.0.1:3000'
+    : 'https://kenzie-enterprises-ten.vercel.app';
+
 async function getUserInfo(): Promise<IUserInfo> {
   const token = cookies().get('next-auth.session-token');
   const requestHeaders = {
@@ -40,7 +45,7 @@ async function getUserInfo(): Promise<IUserInfo> {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const userInfo = await fetch('http://localhost:3000/api/token', {
+  const userInfo = await fetch(`${baseUrl}/api/token`, {
     headers: requestHeaders,
   }).then((res) => res.json());
 
@@ -54,7 +59,7 @@ async function getCoworkers() {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const department = await fetch('http://localhost:3000/api/coworkers', {
+  const department = await fetch(`${baseUrl}/api/coworkers`, {
     headers: requestHeaders,
   }).then((res) => res.json());
 

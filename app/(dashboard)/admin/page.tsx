@@ -3,6 +3,11 @@ import AlertUser from '@/components/AlertUser';
 import EditUserModal from '@/components/EditUserModal';
 import { cookies } from 'next/headers';
 
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? '127.0.0.1:3000'
+    : 'https://kenzie-enterprises-ten.vercel.app';
+
 export interface IUser {
   id: string;
   email: string;
@@ -42,7 +47,7 @@ async function getAllUsers() {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const users = await fetch('127.0.0.1:3000/api/admin/users', {
+  const users = await fetch(`${baseUrl}/api/admin/users`, {
     headers: requestHeaders,
   });
 
@@ -59,7 +64,7 @@ async function getAllUsersOutOfWork() {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const users = await fetch('127.0.0.1:3000/api/admin/hire/out-of-work', {
+  const users = await fetch(`${baseUrl}/api/admin/hire/out-of-work`, {
     headers: requestHeaders,
   });
 
@@ -76,7 +81,7 @@ async function getAllDepartments() {
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const response = await fetch('127.0.0.1:3000/api/admin/departments', {
+  const response = await fetch(`${baseUrl}/api/admin/departments`, {
     headers: requestHeaders,
   });
 
@@ -88,7 +93,7 @@ async function getAllDepartments() {
 }
 
 async function getAllCompanies() {
-  const response = await fetch('127.0.0.1:3000/api/companies');
+  const response = await fetch(`${baseUrl}/api/companies`);
 
   if (!response.ok) {
     throw new Error('Erro ao buscar dados');

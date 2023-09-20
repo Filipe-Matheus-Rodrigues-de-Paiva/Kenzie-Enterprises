@@ -15,9 +15,14 @@ import {
   SelectValue,
 } from './ui/select';
 import { useToast } from '@/components/ui/use-toast';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useState } from 'react';
 import { ToastAction } from './ui/toast';
+
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? '127.0.0.1:3000'
+    : 'https://kenzie-enterprises-ten.vercel.app';
 
 const formSchema = z.object({
   name: z.string().nonempty('Please enter your name').max(50),
@@ -50,7 +55,7 @@ export default function RegisterForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setIsLoading(true);
-      await axios.post('http://localhost:3000/api/register', values);
+      await axios.post(`${baseUrl}/api/register`, values);
 
       toast({
         title: 'Conta cadastrada com sucesso!',

@@ -16,6 +16,11 @@ import { IUser } from '@/app/(dashboard)/admin/page';
 import axios from 'axios';
 import { toast } from './ui/use-toast';
 
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? '127.0.0.1:3000'
+    : 'https://kenzie-enterprises-ten.vercel.app';
+
 export default function AlertUser({
   user,
   token,
@@ -25,7 +30,7 @@ export default function AlertUser({
 }) {
   async function deleteUser() {
     try {
-      await axios.delete(`http://localhost:3000/api/admin/users/${user.id}`, {
+      await axios.delete(`${baseUrl}/api/admin/users/${user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

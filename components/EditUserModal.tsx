@@ -33,6 +33,11 @@ interface IProps {
   user: IUser;
 }
 
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? '127.0.0.1:3000'
+    : 'https://kenzie-enterprises-ten.vercel.app';
+
 const formSchema = z.object({
   kind_of_work: z
     .enum(['Home Office', 'Presencial', 'Híbrido'])
@@ -63,15 +68,11 @@ export default function EditUserModal({ token, user }: IProps) {
     setIsLoading(true);
 
     try {
-      await axios.patch(
-        `http://localhost:3000/api/admin/users/${user.id}`,
-        values,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.patch(`${baseUrl}/api/admin/users/${user.id}`, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       // Revalidar a rota que pega todos os usuários
       toast({
