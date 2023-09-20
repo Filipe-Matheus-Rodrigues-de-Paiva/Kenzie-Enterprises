@@ -57,9 +57,9 @@ async function getAllUsers(): Promise<IUser[]> {
     headers: requestHeaders,
   }).then((res) => res.json());
 
-  await new Promise((r) => {
+  /* await new Promise((r) => {
     setTimeout(r, 2000);
-  });
+  }); */
 
   return users;
 }
@@ -95,9 +95,9 @@ async function getAllDepartments() {
     }
   ).then((res) => res.json());
 
-  await new Promise((r) => {
+  /* await new Promise((r) => {
     setTimeout(r, 2000);
-  });
+  }); */
 
   return departments;
 }
