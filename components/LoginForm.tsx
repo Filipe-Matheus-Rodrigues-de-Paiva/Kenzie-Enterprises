@@ -10,7 +10,23 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
-import GetUserInfo from '@/app/user';
+
+interface IUser {
+  id: string;
+  name: string | null;
+  email: string;
+  emailVerified: Date | null;
+  password: string;
+  professional_level: string;
+  kind_of_work: string | null;
+  department_uuid: string | null;
+  is_superuser: boolean | null;
+  image: string | null;
+}
+
+interface Props {
+  users: IUser[];
+}
 
 const formSchema = z.object({
   email: z
@@ -21,7 +37,7 @@ const formSchema = z.object({
   password: z.string().nonempty({ message: 'Please enter a password!' }),
 });
 
-export default function RegisterForm() {
+export default function LoginForm({ users }: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,7 +52,9 @@ export default function RegisterForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    const id = await GetUserInfo(values.email);
+    const userFound = users.find((user) => user.email === values.email);
+
+    const id = userFound?.id;
 
     signIn('credentials', {
       ...values,
