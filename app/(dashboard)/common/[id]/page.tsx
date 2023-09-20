@@ -61,6 +61,8 @@ async function getCoworkers() {
   return department;
 }
 
+export const validate = 60;
+
 export async function generateStaticParams() {
   const users = await prisma.user.findMany();
 
