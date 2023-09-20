@@ -51,11 +51,15 @@ export default function CreateDepartmentModal({ token, department }: IProps) {
     setIsLoading(true);
 
     try {
-      await axios.patch(`/api/admin/departments/${department.id}`, values, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.patch(
+        `http://localhost:3000/api/admin/departments/${department.id}`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       toast({
         title: 'Departamento editado com sucesso',

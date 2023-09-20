@@ -63,11 +63,15 @@ export default function EditUserModal({ token, user }: IProps) {
     setIsLoading(true);
 
     try {
-      await axios.patch(`/api/admin/users/${user.id}`, values, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.patch(
+        `http://localhost:3000/api/admin/users/${user.id}`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       // Revalidar a rota que pega todos os usuários
       toast({

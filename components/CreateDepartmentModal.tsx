@@ -25,18 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select';
-
-interface ISector {
-  id: string;
-  description: string;
-}
-
-interface ICompany {
-  id: string;
-  name: string;
-  description: string;
-  sector: ISector;
-}
+import { ICompany } from '@/app/(dashboard)/admin/page';
 
 interface IProps {
   token: string | undefined;
@@ -73,11 +62,15 @@ export default function CreateDepartmentModal({ token, companies }: IProps) {
     setIsLoading(true);
 
     try {
-      await axios.post('/api/admin/departments/create', values, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.post(
+        'http://localhost:3000/api/admin/departments/create',
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       toast({
         title: 'Departamento criado com sucesso',

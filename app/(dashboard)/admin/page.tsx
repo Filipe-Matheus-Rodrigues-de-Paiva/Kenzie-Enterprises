@@ -6,11 +6,11 @@ import { cookies } from 'next/headers';
 export interface IUser {
   id: string;
   email: string;
-  name: string;
+  name: string | null;
   professional_level: string;
   kind_of_work: string | null;
   department_uuid: string | null;
-  department: IDepartment;
+  department: IDepartment | null;
 }
 
 export interface IUserOutOfWork {
@@ -22,94 +22,90 @@ export interface IUserOutOfWork {
   department_uuid: string;
 }
 
-interface ISector {
-  id: string;
-  description: string;
-}
-
 export interface ICompany {
   id: string;
   name: string;
   description: string;
-  sector: ISector;
+  sector_uuid: string;
 }
 
 export interface IDepartment {
   id: string;
   name: string;
   description: string;
-  company: {
-    id: string;
-    name: string;
-    description: string;
-    sector_uuid: string;
-  };
+  company: ICompany;
 }
 
-async function getAllUsers(): Promise<IUser[]> {
+async function getAllUsers() {
   const token = cookies().get('next-auth.session-token');
   const requestHeaders = {
-    'Content-Type': 'application/json',
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const users = await fetch('127.0.0.1/api/admin/users', {
+  const users = await fetch('http://localhost:3000/api/admin/users', {
     headers: requestHeaders,
-  }).then((res) => res.json());
-
-  await new Promise((r) => {
-    setTimeout(r, 2000);
   });
 
-  return users;
+  if (!users.ok) {
+    throw new Error('Erro ao buscar dados');
+  }
+
+  return await users.json();
 }
 
 async function getAllUsersOutOfWork() {
   const token = cookies().get('next-auth.session-token');
   const requestHeaders = {
-    'Content-Type': 'application/json',
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const users = await fetch('127.0.0.1/api/admin/hire/out-of-work', {
-    headers: requestHeaders,
-  }).then((res) => res.json());
+  const users = await fetch(
+    'http://localhost:3000/api/admin/hire/out-of-work',
+    {
+      headers: requestHeaders,
+    }
+  );
 
-  return users;
+  if (!users.ok) {
+    throw new Error('Erro ao buscar dados');
+  }
+
+  return await users.json();
 }
 
 async function getAllDepartments() {
   const token = cookies().get('next-auth.session-token');
   const requestHeaders = {
-    'Content-Type': 'application/json',
     Authorization: `Bearer ${token?.value}`,
   };
 
-  const departments = await fetch('127.0.0.1/api/admin/departments', {
+  const response = await fetch('http://localhost:3000/api/admin/departments', {
     headers: requestHeaders,
-  }).then((res) => res.json());
-
-  await new Promise((r) => {
-    setTimeout(r, 2000);
   });
 
-  return departments;
+  if (!response.ok) {
+    throw new Error('Erro ao buscar dados');
+  }
+
+  return await response.json();
 }
 
 async function getAllCompanies() {
-  const companies = await fetch('127.0.0.1/api/companies').then((res) =>
-    res.json()
-  );
+  const response = await fetch('http://localhost:3000/api/companies');
 
-  return companies;
+  if (!response.ok) {
+    throw new Error('Erro ao buscar dados');
+  }
+
+  return await response.json();
 }
 
 export default async function AdminPage() {
-  const companies: ICompany[] = await getAllCompanies();
-  const users = await getAllUsers();
+  const users: IUser[] = await getAllUsers();
   const departments: IDepartment[] = await getAllDepartments();
   const token = cookies().get('next-auth.session-token')?.value;
   const usersOutOfWork: IUserOutOfWork[] = await getAllUsersOutOfWork();
+  const companies: ICompany[] = await getAllCompanies();
 
   return (
     <main className="w-full h-fit flex relative flex-col gap-10 items-center border-2 border-black bg-[#1c2c45]">

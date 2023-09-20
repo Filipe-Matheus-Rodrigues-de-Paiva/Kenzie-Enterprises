@@ -24,11 +24,14 @@ interface IProps {
 export default function AlertDepartment({ department, token }: IProps) {
   async function deleteDepartment() {
     try {
-      await axios.delete(`/api/admin/departments/${department.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(
+        `http://localhost:3000/api/admin/departments/${department.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       toast({
         description: 'Departamento excluído com sucesso!',

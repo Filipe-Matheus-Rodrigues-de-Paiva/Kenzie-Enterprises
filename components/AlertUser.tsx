@@ -25,7 +25,7 @@ export default function AlertUser({
 }) {
   async function deleteUser() {
     try {
-      await axios.delete(`/api/admin/users/${user.id}`, {
+      await axios.delete(`http://localhost:3000/api/admin/users/${user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

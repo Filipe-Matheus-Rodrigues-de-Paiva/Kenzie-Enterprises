@@ -78,7 +78,7 @@ export default function ReviewDepartmentModal({
 
       if (userUuid && departmentUuid) {
         await axios.patch(
-          '/api/admin/hire',
+          'http://localhost:3000/api/admin/hire',
           {
             user_uuid: userUuid,
             department_uuid: departmentUuid,
@@ -110,7 +110,7 @@ export default function ReviewDepartmentModal({
   async function dismissEmployee(id: string) {
     setIsLoading(true);
     try {
-      await axios.patch(`/api/admin/dismiss/${id}`, {
+      await axios.patch(`http://localhost:3000/api/admin/dismiss/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -134,7 +134,7 @@ export default function ReviewDepartmentModal({
 
   const hiredFolks = users.filter(
     (user) =>
-      user.department_uuid !== null && user.department.name === departmentName
+      user.department_uuid !== null && user.department?.name === departmentName
   );
 
   return (
@@ -192,7 +192,6 @@ export default function ReviewDepartmentModal({
           </form>
         </Form>
         <div className="bg-[#f8f8f8] flex gap-3 h-64 w-full items-center pl-2 overflow-x-auto">
-          {/* Map Futuro */}
           {hiredFolks.length > 0 ? (
             hiredFolks.map((employee) => {
               return (

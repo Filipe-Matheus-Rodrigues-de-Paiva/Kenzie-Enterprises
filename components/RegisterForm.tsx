@@ -50,7 +50,7 @@ export default function RegisterForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setIsLoading(true);
-      await axios.post('/api/register', values);
+      await axios.post('http://localhost:3000/api/register', values);
 
       toast({
         title: 'Conta cadastrada com sucesso!',
