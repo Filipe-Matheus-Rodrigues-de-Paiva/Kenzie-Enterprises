@@ -6,7 +6,7 @@ export async function GET(req: any) {
   const token = await getToken({ req });
 
   if (!token || !token.sub) {
-    throw new Error('Usuário não autenticado');
+    throw new Error(`${token?.email}`);
   }
 
   const loggedUser = await prisma.user.findUnique({
