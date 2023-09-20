@@ -5,11 +5,19 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
   const token = await getToken({ req });
 
+  if (!token || !token.email) {
+    throw new Error('Usuário não autenticado');
+  }
+
   const loggedUser = await prisma.user.findUnique({
     where: {
-      id: token?.sub,
+      email: token.email,
     },
   });
+
+  if (!loggedUser) {
+    return NextResponse.json({ detail: 'Usuário não logado' }, { status: 200 });
+  }
 
   const responseFormat = {
     id: loggedUser?.id,
