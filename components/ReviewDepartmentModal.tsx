@@ -131,6 +131,8 @@ export default function ReviewDepartmentModal({
       });
 
       // out of work e users - revalidar
+      await revalidateOutOfWorkUsers();
+      await revalidateUsers();
     } catch (error) {
       toast({
         title: 'O seguinte erro aconteceu:',
