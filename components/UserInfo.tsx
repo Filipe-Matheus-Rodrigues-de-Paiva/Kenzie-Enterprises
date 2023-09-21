@@ -20,6 +20,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toast } from './ui/use-toast';
 import { IUserInfo } from '@/app/(dashboard)/common/[id]/page';
+import { revalidateUserInfo } from '@/app/actions';
 
 interface IProps {
   userInfo: IUserInfo;
@@ -64,6 +65,7 @@ export default function UserInfo({ userInfo, token }: IProps) {
       });
 
       // revalidar userInfo
+      revalidateUserInfo();
     } catch (error) {
       toast({
         title: 'o seguinte erro aconteceu:',
