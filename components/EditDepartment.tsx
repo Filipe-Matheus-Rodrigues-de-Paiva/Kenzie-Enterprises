@@ -28,7 +28,7 @@ interface IProps {
 const baseUrl =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'kenzie-enterprises-sigma.vercel.app';
+    : 'https://kenzie-enterprises-sigma.vercel.app';
 
 const formSchema = z.object({
   description: z.string().nonempty('Campo obrigatório'),

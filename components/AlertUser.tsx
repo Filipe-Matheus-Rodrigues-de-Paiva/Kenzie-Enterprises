@@ -19,7 +19,7 @@ import { toast } from './ui/use-toast';
 const baseUrl =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'kenzie-enterprises-sigma.vercel.app';
+    : 'https://kenzie-enterprises-sigma.vercel.app';
 
 export default function AlertUser({
   user,

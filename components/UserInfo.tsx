@@ -48,7 +48,7 @@ export default function UserInfo({ userInfo, token }: IProps) {
   const baseUrl =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : 'kenzie-enterprises-sigma.vercel.app';
+      : 'https://kenzie-enterprises-sigma.vercel.app';
 
   async function submit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
