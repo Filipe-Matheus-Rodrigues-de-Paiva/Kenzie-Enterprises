@@ -31,6 +31,7 @@ import {
 import { Button } from './ui/button';
 import axios from 'axios';
 import { toast } from './ui/use-toast';
+import { revalidateOutOfWorkUsers, revalidateUsers } from '@/app/actions';
 
 interface IProps {
   department: IDepartment;
@@ -101,6 +102,9 @@ export default function ReviewDepartmentModal({
 
         // revalidar Out of workers
         // revalidar users
+
+        await revalidateOutOfWorkUsers();
+        await revalidateUsers();
       }
     } catch (error) {
       toast({

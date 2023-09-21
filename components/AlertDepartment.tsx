@@ -15,6 +15,11 @@ import {
 import { IDepartment } from '@/app/(dashboard)/admin/page';
 import axios from 'axios';
 import { toast } from './ui/use-toast';
+import {
+  revalidateDepartments,
+  revalidateOutOfWorkUsers,
+  revalidateUsers,
+} from '@/app/actions';
 
 const baseUrl =
   process.env.NODE_ENV === 'development'
@@ -41,6 +46,9 @@ export default function AlertDepartment({ department, token }: IProps) {
       });
 
       // Revalidar Outofworkers, users, departments
+      await revalidateOutOfWorkUsers();
+      await revalidateUsers();
+      await revalidateDepartments();
     } catch (error) {
       toast({
         title: 'O seguinte erro aconteceu:',

@@ -27,6 +27,7 @@ import {
 } from './ui/select';
 import { Edit2Icon } from 'lucide-react';
 import { IUser } from '@/app/(dashboard)/admin/page';
+import { revalidateUsers } from '@/app/actions';
 
 interface IProps {
   token: string | undefined;
@@ -75,6 +76,7 @@ export default function EditUserModal({ token, user }: IProps) {
       });
 
       // Revalidar a rota que pega todos os usuários
+      await revalidateUsers();
       toast({
         description: 'Usuário editado com sucesso',
       });

@@ -15,6 +15,7 @@ import {
 import { IUser } from '@/app/(dashboard)/admin/page';
 import axios from 'axios';
 import { toast } from './ui/use-toast';
+import { revalidateUsers } from '@/app/actions';
 
 const baseUrl =
   process.env.NODE_ENV === 'development'
@@ -46,6 +47,7 @@ export default function AlertUser({
       });
 
       // revalidar users
+      await revalidateUsers();
     } catch (error) {
       toast({
         title: 'O seguinte erro aconteceu:',

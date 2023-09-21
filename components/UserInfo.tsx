@@ -65,7 +65,7 @@ export default function UserInfo({ userInfo, token }: IProps) {
       });
 
       // revalidar userInfo
-      revalidateUserInfo();
+      await revalidateUserInfo();
     } catch (error) {
       toast({
         title: 'o seguinte erro aconteceu:',

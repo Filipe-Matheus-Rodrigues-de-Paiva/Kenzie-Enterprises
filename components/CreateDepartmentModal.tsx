@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from './ui/select';
 import { ICompany } from '@/app/(dashboard)/admin/page';
+import { revalidateDepartments } from '@/app/actions';
 
 interface IProps {
   token: string | undefined;
@@ -78,6 +79,7 @@ export default function CreateDepartmentModal({ token, companies }: IProps) {
       });
 
       // revalidar departamentos
+      await revalidateDepartments();
     } catch (error) {
       toast({
         title: 'Algum erro aconteceu',
