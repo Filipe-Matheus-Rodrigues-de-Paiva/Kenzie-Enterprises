@@ -35,23 +35,28 @@ interface ICoworkers {
 
 const baseUrl =
   process.env.NODE_ENV === 'development'
-    ? '127.0.0.1:3000'
+    ? 'http://localhost:3000'
     : 'https://kenzie-enterprises-ten.vercel.app';
 
 const realCookieName =
   process.env.NODE_ENV === 'development'
-    ? '__Secure-next-auth.session-token'
-    : 'next-auth.session-token';
+    ? 'next-auth.session-token'
+    : '__Secure-next-auth.session-token';
 
 async function getUserInfo() {
   const token = cookies().get(realCookieName);
   const requestHeaders = {
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${token?.value}`,
   };
 
   const userInfo = await fetch(`${baseUrl}/api/token`, {
     headers: requestHeaders,
   }).then((res) => res.json());
+
+  await new Promise((r) => {
+    setTimeout(r, 2000);
+  });
 
   return userInfo;
 }

@@ -41,7 +41,7 @@ interface IProps {
 
 const baseUrl =
   process.env.NODE_ENV === 'development'
-    ? '127.0.0.1:3000'
+    ? 'http://localhost:3000'
     : 'https://kenzie-enterprises-ten.vercel.app';
 
 const formSchema = z.object({
@@ -111,11 +111,6 @@ export default function ReviewDepartmentModal({
       setIsLoading(false);
     }
   }
-
-  const baseUrl =
-    process.env.NODE_ENV === 'development'
-      ? '127.0.0.1:3000'
-      : 'https://kenzie-enterprises-ten.vercel.app';
 
   async function dismissEmployee(id: string) {
     setIsLoading(true);

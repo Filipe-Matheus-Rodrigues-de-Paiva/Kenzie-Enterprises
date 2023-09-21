@@ -5,13 +5,13 @@ import { cookies } from 'next/headers';
 
 const baseUrl =
   process.env.NODE_ENV === 'development'
-    ? '127.0.0.1:3000'
+    ? 'http://localhost:3000'
     : 'https://kenzie-enterprises-ten.vercel.app';
 
 const realCookieName =
   process.env.NODE_ENV === 'development'
-    ? '__Secure-next-auth.session-token'
-    : 'next-auth.session-token';
+    ? 'next-auth.session-token'
+    : '__Secure-next-auth.session-token';
 
 export interface IUser {
   id: string;
